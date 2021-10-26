@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 
 file = sys.argv[1] 
 timestep = 10000
-N_particles = int(file.split('_')[0].replace('particles',''))
-N_obstacles = int(file.split('_')[1].replace('obstacles',''))
-noise = file.split('_')[2].replace('.xyz','')
+N_particles = int(sys.argv[2])
+N_obstacles = int(sys.argv[3])
+noise = float(sys.argv[4])
 N_tot = N_obstacles + N_particles
 # particles  ptype = 0 ; obstacles ptype= 1
 
@@ -41,7 +41,8 @@ plt.figure(figsize=(10,8))
 plt.plot(steps,polar_order_parameter)
 plt.xlabel('timesteps')
 plt.ylabel('polar order parameter')
-plt.savefig('polarorderparameter_'+noise+'noise.png')
+plt.savefig('polarorderparameter_'+
+str(N_particles)+'particles_'+str(N_obstacles)+'obstacles_'+str(noise)+'noise.png')
 plt.show()
 
 plt.style.use('classic')
@@ -49,5 +50,6 @@ plt.figure(figsize=(10,8))
 plt.plot(steps,nematic_order_parameter)
 plt.xlabel('timesteps')
 plt.ylabel('nematic order parameter')
-plt.savefig('nematicorderparameter_'+noise+'noise.png')
+plt.savefig('nematicorderparameter_'+
+str(N_particles)+'particles_'+str(N_obstacles)+'obstacles_'+str(noise)+'noise.png')
 plt.show()
