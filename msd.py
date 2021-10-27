@@ -56,11 +56,11 @@ tau = np.zeros(num_confs//2)
 for m in range(1,len(msd)):
     count = 0
     sum = 0
-    for k in range(len(msd)-m):
-        sum += (position_x[:,m+k] - position_x[:,m])**2 + (position_y[:,m+k] - position_y[:,m])**2 
+    for k in range(num_confs-m):
+        sum += (position_x[:,m+k] - position_x[:,k])**2 + (position_y[:,m+k] - position_y[:,k])**2 
         count += 1
     
-    msd[m] = sum.mean() / count
+    msd[m] = sum.mean() / (count)
     tau[m] = m
 
 
