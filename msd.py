@@ -33,13 +33,12 @@ for n in range(num_confs):
     Y = np.append(Y,y_aux)
 
 
-print(len(X),len(Y),num_confs*N_particles)
 
 position_x = np.zeros((N_particles,num_confs))
 position_y = np.zeros((N_particles,num_confs))
 
 for i in range(0,N_particles):
-    print(i)
+    #print(i)
     x_unwrapped = X[i]
     y_unwrapped = Y[i]
     for t in range(1,num_confs):
@@ -51,8 +50,8 @@ for i in range(0,N_particles):
         position_x[i,t] = X[tid]
         position_y[i,t] = Y[tid]
 
-msd = np.zeros(num_confs//2)
-tau = np.zeros(num_confs//2)
+msd = np.zeros(num_confs)
+tau = np.zeros(num_confs)
 for m in range(1,len(msd)):
     count = 0
     sum = 0
@@ -62,6 +61,7 @@ for m in range(1,len(msd)):
     
     msd[m] = sum.mean() / (count)
     tau[m] = m
+    print(m)
 
 
 
@@ -70,8 +70,21 @@ np.savetxt('data_msd'+str(N_particles)+'particles_'+str(N_obstacles)+'obstacles'
 
 plt.style.use('classic')
 plt.figure(figsize=(10,8))
-plt.plot(tau,msd)
+plt.plot(tau,msd,label='Data')
 plt.xlabel('timesteps')
 plt.ylabel('msd')
-plt.savefig('msd.png')
+plt.savefig('msd_noise'+noise+'.png')
+plt.show()
+
+plt.style.use('classic')
+plt.figure(figsize=(10,8))
+plt.yscale('log')
+plt.xscale('log')
+plt.plot(tau,msd,label='Data')
+plt.plot(tau,tau**2,label='ballistic')
+plt.plot(tau,tau, label='diffusion')
+plt.legend(loc='best')
+plt.xlabel('timesteps')
+plt.ylabel('msd')
+plt.savefig('msd_log_noise'+noise+'.png')
 plt.show()
