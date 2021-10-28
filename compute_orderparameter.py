@@ -32,7 +32,7 @@ steps = np.arange(timestep,(num_confs+1)*timestep,timestep,dtype='float64')
 
 
 np.savetxt('data_orderparameter'+
-str(N_particles)+'particles_'+str(N_obstacles)+'obstacles'+noise,
+str(N_particles)+'particles_'+str(N_obstacles)+'obstacles'+str(noise),
 (steps,polar_order_parameter,nematic_order_parameter),
 header='time\tpolar\tnematic')
 
